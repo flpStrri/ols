@@ -15,8 +15,14 @@ if "%1" == "CI" (
 
     odin build src\ -collection:src=src -out:ols.exe -o:speed  -no-bounds-check -extra-linker-flags:"/STACK:4000000,2000000" -define:VERSION=%OLS_VERSION%
 
+    pushd .
     call "tools/odinfmt/tests.bat"
+    popd
     if %errorlevel% neq 0 exit /b 1
+
+    odin build tools\odinfmt\main.odin -file -collection:src=src -out:odinfmt.exe -o:speed
 ) else (
     odin build src\ -collection:src=src -out:ols.exe -o:speed  -no-bounds-check -extra-linker-flags:"/STACK:4000000,2000000" -define:VERSION=%OLS_VERSION%
+
+    odin build tools\odinfmt\main.odin -file -collection:src=src -out:odinfmt.exe -o:speed
 )
