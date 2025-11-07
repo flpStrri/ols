@@ -40,3 +40,5 @@ fi
 
 
 odin build src/ -show-timings -collection:src=src -out:ols -no-bounds-check -o:speed -define:VERSION=$OLS_VERSION $@
+
+odin build tools/odinfmt/main.odin -file -show-timings -collection:src=src -out:odinfmt -o:speed
